@@ -1,22 +1,32 @@
 import { SaveOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, InputNumber, Typography } from 'antd';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getUserStorage } from '../helpers/getUserStorage';
 import { useHideMenu } from '../hooks/useHideMenu';
 
 const { Title, Text } = Typography
 
 const GetStarted = () => {
   const navigate = useNavigate()
+  const [agent] = useState(getUserStorage())
   useHideMenu(false);
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-    navigate('/desktop', { state: values })
+  const onFinish = ({agentName, desktop}) => {
+    localStorage.setItem('agent', agentName)
+    localStorage.setItem('desktop', desktop)
+    navigate('/desktop', { state: {agentName, desktop} })
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+
+  useEffect(() => {
+    if (agent.agent && agent.desktop) {
+      navigate('/desktop')
+    }
+  },[agent])
 
   return (
     <>

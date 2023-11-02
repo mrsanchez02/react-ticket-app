@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { UIContext } from './UIContext';
 
 export const UIProvider = ({ children }) => {
-  const [isSidebarHidden, setIsSidebarHidden] = useState(true);
+  const [isSidebarHidden, setIsSidebarHidden] = useState(false);
   
   const showMenu = () => {
     setIsSidebarHidden(false)

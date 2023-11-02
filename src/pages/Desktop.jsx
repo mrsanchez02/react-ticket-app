@@ -1,22 +1,37 @@
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Col, Divider, Row, Typography } from 'antd'
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getUserStorage } from '../helpers/getUserStorage'
 
 const { Title, Text } = Typography
 
 const Desktop = () => {
 
-  const exit = () => console.log('exit')
+  const navigate = useNavigate()
+  const [agent] = useState(getUserStorage())
+
+  const exit = () => {
+    localStorage.removeItem('agent')
+    localStorage.removeItem('desktop')
+    navigate('/get-started')
+  }
   
   const nextTicket = () => console.log('nextTicket')
+
+  useEffect(() => {
+    if (!agent.agent && !agent.desktop) {
+      navigate('/get-started')
+    }
+  },[agent])
 
   return (
     <>
       <Row>
         <Col span={20}>
-          <Title>Jose</Title>
+          <Title>{agent.agent}</Title>
           <Text>You are working on desktop: </Text>
-          <Text type="success">5</Text>
+          <Text type="success">{agent.desktop}</Text>
         </Col>
         <Col span={4} align="right">
           <Button shape='round' type='default' onClick={exit} danger>

@@ -4,7 +4,7 @@ import {
   VideoCameraOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { UIContext } from '../context/UIContext';
 
@@ -16,11 +16,6 @@ const RouterPage = () => {
   } = theme.useToken();
   
   const {isSidebarHidden} = useContext(UIContext);
-  
-  useEffect(() => {
-    console.log("🚀 ~ file: RouterPage.jsx:19 ~ RouterPage ~ isSidebarHidden:", isSidebarHidden)
-    console.log({inRouterPageSideBarIs: isSidebarHidden?'hidden':'visible'})
-  }, [isSidebarHidden])
   
   return (
     <Layout style={{ height: '100vh' }}>
