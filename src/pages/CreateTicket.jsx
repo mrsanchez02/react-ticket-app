@@ -1,10 +1,8 @@
 import { DownloadOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Typography } from 'antd'
-import { useHideMenu } from '../hooks/useHideMenu'
 
 const CreateTicket = () => {
   const {Title, Text} = Typography
-  useHideMenu(true);
 
   const newTicket = () => console.log(newTicket)
 

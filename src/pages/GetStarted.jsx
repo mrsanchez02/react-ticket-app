@@ -6,8 +6,8 @@ import { useHideMenu } from '../hooks/useHideMenu';
 const { Title, Text } = Typography
 
 const GetStarted = () => {
-  useHideMenu(false);
   const navigate = useNavigate()
+  useHideMenu(false);
 
   const onFinish = (values) => {
     console.log('Success:', values);

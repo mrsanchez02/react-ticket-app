@@ -1,5 +1,4 @@
 import { Card, Col, Divider, List, Row, Tag, Typography } from 'antd';
-import { useHideMenu } from '../hooks/useHideMenu';
 
 const data = [
   {
@@ -41,7 +40,6 @@ const data = [
 
 const Queue = () => {
   const { Title, Text } = Typography
-  useHideMenu(true);
 
   return (
     <>

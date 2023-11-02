@@ -4,7 +4,7 @@ import {
   VideoCameraOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { UIContext } from '../context/UIContext';
 
@@ -15,11 +15,16 @@ const RouterPage = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   
-  const {isSidebarOpen} = useContext(UIContext);
+  const {isSidebarHidden} = useContext(UIContext);
+  
+  useEffect(() => {
+    console.log("🚀 ~ file: RouterPage.jsx:19 ~ RouterPage ~ isSidebarHidden:", isSidebarHidden)
+    console.log({inRouterPageSideBarIs: isSidebarHidden?'hidden':'visible'})
+  }, [isSidebarHidden])
   
   return (
     <Layout style={{ height: '100vh' }}>
-      <Sider collapsedWidth={0} breakpoint='md' hidden={isSidebarOpen} zeroWidthTriggerStyle={{display:'none'}}>
+      <Sider collapsedWidth={0} hidden={isSidebarHidden} collapsible>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
