@@ -50,7 +50,7 @@ const Queue = () => {
           renderItem={item => (
             <List.Item>
               <List.Item.Meta 
-                title={`Ticket No. ${item.ticketNo}`}
+                title={`Ticket No. ${item.ticketNumber}`}
                 description={
                   <>
                     <Text type='secondary'>At the desktop </Text>
