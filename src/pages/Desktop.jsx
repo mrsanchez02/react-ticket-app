@@ -1,8 +1,9 @@
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Col, Divider, Row, Typography } from 'antd'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserStorage } from '../helpers/getUserStorage'
+import { SocketContext } from '../context/SocketContext'
 
 const { Title, Text } = Typography
 
@@ -10,6 +11,8 @@ const Desktop = () => {
 
   const navigate = useNavigate()
   const [agent] = useState(getUserStorage())
+  const [workingTicket, setWorkingTicket] = useState(null)
+  const { socket } = useContext(SocketContext)
 
   const exit = () => {
     localStorage.removeItem('agent')
@@ -17,7 +20,11 @@ const Desktop = () => {
     navigate('/get-started')
   }
   
-  const nextTicket = () => console.log('nextTicket')
+  const nextTicket = () => {
+    socket.emit('next-ticket', agent, (ticket) => {
+      setWorkingTicket(ticket)
+    })
+  }
 
   useEffect(() => {
     if (!agent.agent && !agent.desktop) {
@@ -41,17 +48,17 @@ const Desktop = () => {
         </Col>
       </Row>
       <Divider />
-      <Row>
+      {workingTicket && (<Row>
         <Col>
           <Text>You are currently working with the ticket no: </Text>
           <Text
             style={{ fontSize: 30 }}
             type="danger"
           >
-            55
+            {workingTicket?.ticketNumber}
           </Text>
         </Col>
-      </Row>
+      </Row>)}
       <Row>
         <Col offset={18} span={6} align="right">
           <Button
